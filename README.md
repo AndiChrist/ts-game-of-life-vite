@@ -13,3 +13,9 @@ use: "Vanilla" and "TypeScript" (ignore existing files)
  npm install
  npm run dev
 ```
+
+## alternative project creation
+```zsh
+ npm create vite@latest game-of-life-vite -- --template vanilla-ts
+```
+
