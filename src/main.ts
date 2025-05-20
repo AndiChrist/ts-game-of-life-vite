@@ -69,10 +69,15 @@ function nextGeneration(grid: Grid): Grid {
 
 let grid = createGrid();
 let animationId: number | null = null;
+let fps = 30;
+let lastTime = 0;
 
-function loop() {
-    drawGrid(grid);
-    grid = nextGeneration(grid);
+function loop(time: number) {
+    if (time - lastTime > 1000 / fps) {
+        drawGrid(grid);
+        grid = nextGeneration(grid);
+        lastTime = time;
+    }
     animationId = requestAnimationFrame(loop);
 }
 
@@ -83,9 +88,12 @@ const pauseBtn = document.getElementById("pauseBtn")!;
 const resetBtn = document.getElementById("resetBtn")!;
 const randomBtn = document.getElementById("randomBtn")!;
 
+const stepBtn = document.getElementById("stepBtn")!;
+const speedSlider = document.getElementById("speedSlider") as HTMLInputElement;
+
 startBtn.addEventListener("click", () => {
     if (animationId === null) {
-        loop();
+        requestAnimationFrame(loop);
     }
 });
 
@@ -93,6 +101,13 @@ pauseBtn.addEventListener("click", () => {
     if (animationId !== null) {
         cancelAnimationFrame(animationId);
         animationId = null;
+    }
+});
+
+stepBtn.addEventListener("click", () => {
+    if (animationId === null) {
+        grid = nextGeneration(grid);
+        drawGrid(grid);
     }
 });
 
@@ -104,6 +119,10 @@ resetBtn.addEventListener("click", () => {
 randomBtn.addEventListener("click", () => {
     grid = createGrid();
     drawGrid(grid);
+});
+
+speedSlider.addEventListener("input", () => {
+    fps = parseInt(speedSlider.value);
 });
 
 // === Hilfsfunktion für leeres Gitter ===

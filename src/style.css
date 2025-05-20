@@ -27,3 +27,11 @@ button:hover {
   background: #0f0;
   color: #000;
 }
+label {
+  color: #0f0;
+  font-family: sans-serif;
+  margin-left: 10px;
+}
+input[type="range"] {
+  vertical-align: middle;
+}
