@@ -19,3 +19,12 @@ use: "Vanilla" and "TypeScript" (ignore existing files)
  npm create vite@latest game-of-life-vite -- --template vanilla-ts
 ```
 
+## scripts in this project
+* dev	
+  * Entwicklungsserver mit Hot Reload (vite)
+* build	
+  * Produktions-Build in den Ordner dist/
+* preview
+  * Vorschau des Builds via lokalen Webserver
+* clean (manuell)
+  * Löscht dist/, um frisch zu bauen
