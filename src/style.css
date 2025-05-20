@@ -35,3 +35,10 @@ label {
 input[type="range"] {
   vertical-align: middle;
 }
+select {
+  background: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 5px;
+  font-size: 1rem;
+}

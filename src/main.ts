@@ -135,6 +135,56 @@ function createEmptyGrid(): Grid {
 // Startzustand zeichnen
 drawGrid(grid);
 
+// === Preset-Funktion ===
+function applyPreset(preset: string): Grid {
+    const newGrid = createEmptyGrid();
+
+    function set(x: number, y: number) {
+        if (x >= 0 && x < cols && y >= 0 && y < rows) {
+            newGrid[y][x] = 1;
+        }
+    }
+
+    const cx = Math.floor(cols / 2);
+    const cy = Math.floor(rows / 2);
+
+    switch (preset) {
+        case "glider":
+            // Kleines sich bewegendes Muster
+            set(cx, cy);
+            set(cx + 1, cy);
+            set(cx - 1, cy);
+            set(cx + 1, cy - 1);
+            set(cx, cy - 2);
+            break;
+
+        case "blinker":
+            // 3 Zellen in einer Linie
+            set(cx - 1, cy);
+            set(cx, cy);
+            set(cx + 1, cy);
+            break;
+
+        case "pulsar":
+            // Komplexeres Oszillator-Muster
+            const pattern = [
+                [2, 0], [3, 0], [4, 0], [8, 0], [9, 0], [10, 0],
+                [0, 2], [5, 2], [7, 2], [12, 2],
+                [0, 3], [5, 3], [7, 3], [12, 3],
+                [0, 4], [5, 4], [7, 4], [12, 4],
+                [2, 5], [3, 5], [4, 5], [8, 5], [9, 5], [10, 5],
+            ];
+            for (const [dx, dy] of pattern) {
+                set(cx + dx - 6, cy + dy - 3); // zentrieren
+                set(cx + dx - 6, cy - dy + 3);
+            }
+            break;
+    }
+
+    return newGrid;
+}
+
+// === Klick-Funktion ===
 canvas.addEventListener("click", (event) => {
     const rect = canvas.getBoundingClientRect();
     const x = Math.floor((event.clientX - rect.left) / cellSize);
@@ -143,6 +193,17 @@ canvas.addEventListener("click", (event) => {
     if (x >= 0 && x < cols && y >= 0 && y < rows) {
         // Zelle invertieren
         grid[y][x] = grid[y][x] === 1 ? 0 : 1;
+        drawGrid(grid);
+    }
+});
+
+// === Preset-Dropdown ===
+const presetSelect = document.getElementById("presetSelect") as HTMLSelectElement;
+
+presetSelect.addEventListener("change", () => {
+    const preset = presetSelect.value;
+    if (preset) {
+        grid = applyPreset(preset);
         drawGrid(grid);
     }
 });
