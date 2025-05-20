@@ -116,3 +116,14 @@ function createEmptyGrid(): Grid {
 // Startzustand zeichnen
 drawGrid(grid);
 
+canvas.addEventListener("click", (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor((event.clientX - rect.left) / cellSize);
+    const y = Math.floor((event.clientY - rect.top) / cellSize);
+
+    if (x >= 0 && x < cols && y >= 0 && y < rows) {
+        // Zelle invertieren
+        grid[y][x] = grid[y][x] === 1 ? 0 : 1;
+        drawGrid(grid);
+    }
+});
