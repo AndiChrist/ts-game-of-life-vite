@@ -68,11 +68,51 @@ function nextGeneration(grid: Grid): Grid {
 }
 
 let grid = createGrid();
+let animationId: number | null = null;
 
-function update() {
+function loop() {
     drawGrid(grid);
     grid = nextGeneration(grid);
-    requestAnimationFrame(update);
+    animationId = requestAnimationFrame(loop);
 }
 
-update();
+// === Button-Funktionen ===
+
+const startBtn = document.getElementById("startBtn")!;
+const pauseBtn = document.getElementById("pauseBtn")!;
+const resetBtn = document.getElementById("resetBtn")!;
+const randomBtn = document.getElementById("randomBtn")!;
+
+startBtn.addEventListener("click", () => {
+    if (animationId === null) {
+        loop();
+    }
+});
+
+pauseBtn.addEventListener("click", () => {
+    if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+    }
+});
+
+resetBtn.addEventListener("click", () => {
+    grid = createEmptyGrid();
+    drawGrid(grid);
+});
+
+randomBtn.addEventListener("click", () => {
+    grid = createGrid();
+    drawGrid(grid);
+});
+
+// === Hilfsfunktion für leeres Gitter ===
+function createEmptyGrid(): Grid {
+    return Array.from({ length: rows }, () =>
+        Array.from({ length: cols }, () => 0 as Cell)
+    );
+}
+
+// Startzustand zeichnen
+drawGrid(grid);
+

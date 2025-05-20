@@ -9,3 +9,21 @@ body {
 canvas {
   border: 1px solid #555;
 }
+#ui {
+  position: absolute;
+  top: 20px;
+  display: flex;
+  gap: 10px;
+}
+button {
+  background: #222;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover {
+  background: #0f0;
+  color: #000;
+}
