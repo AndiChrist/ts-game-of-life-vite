@@ -1,3 +1,5 @@
+import {getNextGeneration, type Grid} from './game';
+
 const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
 
@@ -8,7 +10,6 @@ canvas.width = cols * cellSize;
 canvas.height = rows * cellSize;
 
 type Cell = 0 | 1;
-type Grid = Cell[][];
 
 function createGrid(): Grid {
     const grid: Grid = [];
@@ -33,40 +34,6 @@ function drawGrid(grid: Grid) {
     }
 }
 
-function countNeighbors(grid: Grid, x: number, y: number): number {
-    let count = 0;
-    for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
-            if (dx === 0 && dy === 0) continue;
-            const nx = x + dx;
-            const ny = y + dy;
-            if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
-                count += grid[ny][nx];
-            }
-        }
-    }
-    return count;
-}
-
-function nextGeneration(grid: Grid): Grid {
-    const newGrid: Grid = [];
-    for (let y = 0; y < rows; y++) {
-        newGrid[y] = [];
-        for (let x = 0; x < cols; x++) {
-            const neighbors = countNeighbors(grid, x, y);
-            const cell = grid[y][x];
-            if (cell === 1 && (neighbors === 2 || neighbors === 3)) {
-                newGrid[y][x] = 1;
-            } else if (cell === 0 && neighbors === 3) {
-                newGrid[y][x] = 1;
-            } else {
-                newGrid[y][x] = 0;
-            }
-        }
-    }
-    return newGrid;
-}
-
 let grid = createGrid();
 let animationId: number | null = null;
 let fps = 30;
@@ -75,7 +42,7 @@ let lastTime = 0;
 function loop(time: number) {
     if (time - lastTime > 1000 / fps) {
         drawGrid(grid);
-        grid = nextGeneration(grid);
+        grid = getNextGeneration(grid);
         lastTime = time;
     }
     animationId = requestAnimationFrame(loop);
@@ -106,7 +73,7 @@ pauseBtn.addEventListener("click", () => {
 
 stepBtn.addEventListener("click", () => {
     if (animationId === null) {
-        grid = nextGeneration(grid);
+        grid = getNextGeneration(grid);
         drawGrid(grid);
     }
 });

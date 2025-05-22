@@ -28,3 +28,23 @@ use: "Vanilla" and "TypeScript" (ignore existing files)
   * Vorschau des Builds via lokalen Webserver
 * clean (manuell)
   * Löscht dist/, um frisch zu bauen
+
+## install unit tests
+```zsh
+ npm install --save-dev vitest
+ npm install --save-dev vite vitest
+
+```
+### with UI
+```zsh
+ npm install --save-dev @vitest/ui
+```
+### install jsdom
+```zsh
+ npm install --save-dev jsdom
+```
+
+## start test
+```zsh
+ npx vitest --ui
+```
