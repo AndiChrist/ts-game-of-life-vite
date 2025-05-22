@@ -31,7 +31,6 @@ use: "Vanilla" and "TypeScript" (ignore existing files)
 
 ## install unit tests
 ```zsh
- npm install --save-dev vitest
  npm install --save-dev vite vitest
 
 ```
