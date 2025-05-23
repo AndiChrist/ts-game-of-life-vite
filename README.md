@@ -49,3 +49,18 @@ npm install --save-dev jsdom
 ```zsh
 npx vitest --ui
 ```
+
+## test coverage
+### install plugin
+```zsh
+npm install -D @vitest/coverage-v8
+```
+
+### run test with covergae
+```zsh
+npx vitest run --coverage
+```
+or with UI
+```zsh
+npx vitest --ui
+```
