@@ -1,22 +1,24 @@
 # ts-game-of-life-vite
+A small "game of life" (by John Conway ,1970) project with TypeScript
+
 Vite is a modern, lightning-fast build and development server for web projects – ideal for projects using TypeScript, JavaScript, React, Vue, Svelte and more.
 
 ## install Vite
 ```zsh
- npm create vite@latest
+npm create vite@latest
 ```
 use: "Vanilla" and "TypeScript" (ignore existing files)
 
 ## follow steps
 ```zsh
- cd ts-game-of-life-vite
- npm install
- npm run dev
+cd ts-game-of-life-vite
+npm install
+npm run dev
 ```
 
 ## alternative project creation
 ```zsh
- npm create vite@latest game-of-life-vite -- --template vanilla-ts
+npm create vite@latest game-of-life-vite -- --template vanilla-ts
 ```
 
 ## scripts in this project
@@ -31,19 +33,19 @@ use: "Vanilla" and "TypeScript" (ignore existing files)
 
 ## install unit tests
 ```zsh
- npm install --save-dev vite vitest
+npm install --save-dev vite vitest
 
 ```
 ### with UI
 ```zsh
- npm install --save-dev @vitest/ui
+npm install --save-dev @vitest/ui
 ```
 ### install jsdom
 ```zsh
- npm install --save-dev jsdom
+npm install --save-dev jsdom
 ```
 
 ## start test
 ```zsh
- npx vitest --ui
+npx vitest --ui
 ```

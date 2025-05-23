@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { getNextGeneration } from './game';
+import { simulate } from './utils';
+import { getNextGeneration, type Grid } from './game';
 
 describe('Game of Life - Muster', () => {
     it('Blinker oszilliert korrekt', () => {
@@ -69,34 +70,26 @@ describe('Game of Life - Muster', () => {
         expect(getNextGeneration(input)).toEqual(expected);
     });
 
+    describe('Glider entwickelt sich korrekt über mehrere Generationen', () => {
+        it('Glider nach 4 Generationen', () => {
+            const gen0: Grid = [
+                [0, 1, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [1, 1, 1, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+            ];
 
+            const expectedGen4: Grid = [
+                [0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0],
+                [0, 1, 1, 1, 0],
+                [0, 0, 0, 0, 0],
+            ];
 
-    it('Glider bewegt sich korrekt (4 Generationen)', () => {
-        const gen0 = [
-            [0, 1, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [1, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-        ];
-
-        const gen4 = [
-            [0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 0, 1, 0],
-            [0, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0],
-        ];
-
-        expect(simulate(gen0, 4)).toEqual(gen4);
+            expect(simulate(gen0, 4)).toEqual(expectedGen4);
+        });
     });
 
 });
-
-function simulate(grid: number[][], steps: number): number[][] {
-    let result = grid;
-    for (let i = 0; i < steps; i++) {
-        result = getNextGeneration(result);
-    }
-    return result;
-}
